@@ -83,25 +83,28 @@ class Account(DeclarativeBaseGuid):
     A GnuCash Account which is specified by its name, type and commodity.
 
     Attributes:
-        type (str): type of the Account
-        sign (int): 1 for accounts with positive balances, -1 for accounts with negative balances
-        code (str): code of the Account
-        commodity (:class:`piecash.core.commodity.Commodity`): the commodity of the account
-        commodity_scu (int): smallest currency unit for the account
-        non_std_scu (int): 1 if the scu of the account is NOT the same as the commodity
-        description (str): description of the account
         name (str): name of the account
-        fullname (str): full name of the account (including name of parent accounts separated by ':')
-        placeholder (int): 1 if the account is a placeholder (should not be involved in transactions)
-        hidden (int): 1 if the account is hidden
-        is_template (bool): True if the account is a template account (ie commodity=template/template)
+        type (str): type of the Account
+        commodity (:class:`piecash.core.commodity.Commodity`): the commodity of the account
         parent (:class:`Account`): the parent account of the account (None for the root account of a book)
+        description (str): description of the account
+        commodity_scu (int): smallest currency unit for the account
+        hidden (int): 1 if the account is hidden
+        placeholder (int): 1 if the account is a placeholder (should not be involved in transactions)
+        code (str): code of the Account
+        book (:class:`piecash.core.book.Book`): the book if the account is the root account (else None)
         children (list of :class:`Account`): the list of the children accounts
+
+        sign (int): 1 for accounts with positive balances, -1 for accounts with negative balances
+        non_std_scu (int): 1 if the scu of the account is NOT the same as the commodity
+        fullname (str): full name of the account (including name of parent accounts separated by ':')
+        is_template (bool): True if the account is a template account (ie commodity=template/template)
         splits (list of :class:`piecash.core.transaction.Split`): the list of the splits linked to the account
         lots (list of :class:`piecash.business.Lot`): the list of lots to which the account is linked
-        book (:class:`piecash.core.book.Book`): the book if the account is the root account (else None)
         budget_amounts (list of :class:`piecash.budget.BudgetAmount`): list of budget amounts of the account
         scheduled_transaction (:class:`piecash.core.transaction.ScheduledTransaction`): scheduled transaction linked to the account
+
+    Valid account types are listed in `piecash.ACCOUNT_TYPES`.
     """
     __tablename__ = 'accounts'
 
